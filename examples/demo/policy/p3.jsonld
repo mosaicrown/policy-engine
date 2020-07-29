@@ -1,0 +1,35 @@
+[
+  {
+    "@context": [
+	    "http://www.w3.org/ns/odrl.jsonld",
+	    "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+    ],
+    "@type": "Set",
+    "uid": "http://bank.eu/policy/p3",
+    "permission": [
+      {
+        "uid": "http://bank.eu/policy/p3_perm_1",
+        "assignee": "http://bank.eu/user/administrative",
+        "target": [
+	        "http://bank.eu/finance/Payment/CustomerID",
+          "http://bank.eu/finance/Payment/Month",
+	        "http://bank.eu/finance/Payment/Year"
+	      ],
+        "action": "use",
+	      "purpose": "statistical"
+      },
+      {
+        "uid": "http://bank.eu/policy/p3_perm_2",
+        "assignee": "http://bank.eu/user/administrative",
+        "target": [
+	        "http://bank.eu/finance/Payment/Month",
+          "http://bank.eu/finance/Payment/Year",
+          "http://bank.eu/finance/Payment/Amount",	    
+	        "http://bank.eu/finance/Payment/Merchant"
+	      ],
+        "action": "use",
+	      "purpose": "statistical"
+      }	
+    ]
+  }
+]

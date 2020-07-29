@@ -1,0 +1,214 @@
+[
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/purpose",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2004/02/skos/core#Concept",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:ub1bL732C14"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Has Purpose"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The operation relating to the Asset for which the Rule is being subjected."
+      }
+    ]
+  },
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept",
+      "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2000/01/rdf-schema#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Purpose"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://schema.org/Action"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The purpose of the operation."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "Purposes may be specified by Permissions, Prohibitions, or Duties."
+      }
+    ]
+  },
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/declinationOf",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#TransitiveProperty",
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Included In"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A Purpose transitively asserts that another Purpose encompasses its operational semantics."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "The purpose is to explicitly assert that the semantics of the referenced instance of an other Purpose encompasses (includes) the semantics of this instance of Purpose. The includedIn property is transitive, and as such, the Purposes form ancestor relationships."
+      }
+    ]
+  },
+
+
+{
+    "@id": "http://localhost:8000/ns/mosaicrown/belongsTo",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#TransitiveProperty",
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Included In"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "An Assignee transitively asserts that another Assigne encompasses its operational permissions."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "The purpose is to explicitly assert that the semantics of the referenced instance of an other Assignee encompasses (includes) the semantics of this instance of Assignee. The belongsTo property is transitive, and as such, the permissions form ancestor relationships."
+      }
+    ]
+  },
+
+    
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/general",
+    "@type": [
+      "http://localhost:8000/ns/mosaicrown",
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "General"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A general porpose"
+      }
+    ]
+  },
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/functional",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept",
+      "http://localhost:8000/ns/mosaicrown"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Functional"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A functional purpose" 
+      }
+    ],
+    "http://localhost:8000/ns/mosaicrown/declinationOf": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/general"
+      }
+    ]
+  }
+]

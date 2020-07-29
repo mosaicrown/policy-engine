@@ -1,0 +1,60 @@
+[
+  {
+    "@context": [
+      "http://www.w3.org/ns/odrl.jsonld",
+      "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+    ],
+    "@type": "Set",
+    "uid": "http://unibg.it/policy/1",
+    "permission": [
+      {
+        "uid": "http://unibg.it/policy/1/+a",
+        "assignee": "http://unibg.it/user/parabosc",
+        "target": "http://unibg.it/",
+        "action": "odrl:read",
+        "purpose": "statistical"
+      }
+    ],
+    "prohibition": [
+      {
+        "uid": "http://unibg.it/policy/1/-b",
+        "assignee": "http://unibg.it/user/parabosc",
+        "target": [
+          "http://unibg.it/table/students/IBAN",
+          "http://unibg.it/table/students/CC",
+          "http://unibg.it/table/fees/tax"
+        ],
+        "action": "odrl:read",
+        "purpose": "statistical"
+      }
+    ]
+  },
+  {
+    "@context": [
+      "http://www.w3.org/ns/odrl.jsonld",
+      "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+    ],
+    "@type": "Set",
+    "uid": "http://unibg.it/policy/2",
+    "permission": [
+      {
+        "uid": "http://unibg.it/policy/2/+a",
+        "assignee": "http://unibg.it/user",
+        "target": "http://unibg.it/table/students/Ethnicity",
+        "action": "odrl:read",
+        "purpose": "statistical"
+      },
+      {
+        "uid": "http://unibg.it/policy/2/+b",
+        "assignee": "http://unibg.it/user",
+        "target": [
+          "http://unibg.it/table/students/Sex",
+          "http://unibg.it/table/students/CF",
+          "http://unibg.it/table/students/Birthdate"
+        ],
+        "action": "odrl:read",
+        "purpose": "statistical"
+      }
+    ]
+  }
+]

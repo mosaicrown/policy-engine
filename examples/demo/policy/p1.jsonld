@@ -1,0 +1,17 @@
+[
+  {
+    "@context": [
+	    "http://www.w3.org/ns/odrl.jsonld",
+	    "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+    ],
+    "@type": "Set",
+    "uid": "http://bank.eu/policy/p1",
+    "permission": [{
+      "uid": "http://bank.eu/policy/p1_perm_1",
+      "assignee": "http://bank.eu/user/administrative",
+      "target": "http://bank.eu/finance/CardHolder/Name",
+      "action": "read",
+	    "purpose": "statistical"
+    }]
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "@context": "http://www.w3.org/ns/odrl.jsonld",
+    "@type": "Set",
+    "uid": "http://example.com/policy:1010",
+    "permission": [
+      {
+        "assignee": "http://example.com/parabosc",
+        "uid": "http://example.com/policy:1010:a",
+        "target": "http://example.com/asset:9898.movie",
+        "action": "transfer"
+      },
+      {
+        "assignee": "http://example.com/parabosc",
+        "uid": "http://example.com/policy:1010:b",
+        "target": "http://example.com/asset:9000.movie",
+        "action": "sell"
+      }
+    ]
+  }
+]

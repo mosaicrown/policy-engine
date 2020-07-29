@@ -1,0 +1,60 @@
+[
+  {
+      "@context": [
+	  "http://www.w3.org/ns/odrl.jsonld",
+	  "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+      ],
+    "@type": "Set",
+    "uid": "http://unibg.it/policy/a2s1",
+    "permission": [
+      {
+        "uid": "http://unibg.it/policy/a2s1_stud_perm",
+        "assignee": "http://unibg.it/user/professor",
+        "target": "http://unibg.it/engineering/student",
+        "action": "read",
+	"purpose": "institutional"
+      },
+      {
+        "uid": "http://unibg.it/policy/a2s1_prof_perm",
+        "assignee": "http://unibg.it/user/professor",
+        "target": "http://unibg.it/engineering/professor",
+        "action": "read",
+	"purpose": "institutional"
+      },
+      {
+        "uid": "http://unibg.it/policy/a2s1_exam_perm",
+        "assignee": "http://unibg.it/user/professor",
+        "target": "http://unibg.it/engineering/exam",
+        "action": "write",
+	"purpose": "institutional"
+      },
+      {
+        "uid": "http://unibg.it/policy/a2s1_course_perm",
+        "assignee": "http://unibg.it/user/professor",
+        "target": "http://unibg.it/engineering/course",
+        "action": "read",
+	"purpose": "institutional"
+      }
+    ],
+    "prohibition": [
+      {
+    	"uid": "http://unibg.it/policy/a2s1_stud_pro",
+	"assignee": "http://unibg.it/user/professor",
+        "target": [
+	  "http://unibg.it/engineering/student/income"
+	],
+        "action": "write",
+	"purpose": "institutional"
+      },
+      {
+    	"uid": "http://unibg.it/policy/a2s1_prof_pro",
+	"assignee": "http://unibg.it/user/professor",
+        "target": [
+	  "http://unibg.it/engineering/professor/salary"
+	],
+        "action": "write",
+	"purpose": "institutional"
+      }
+    ]
+  }
+ ]

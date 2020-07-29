@@ -1,0 +1,40 @@
+[
+  {
+      "@context": [
+	  "http://www.w3.org/ns/odrl.jsonld",
+	  "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+      ],
+    "@type": "Set",
+    "uid": "http://unibg.it/policy/b2s1",
+    "permission": [
+      {
+        "uid": "http://unibg.it/policy/b2s1_stud_perm",
+        "assignee": "http://unibg.it/user/administrative",
+        "target": "http://unibg.it/engineering/student",
+        "action": "write",
+	"purpose": "institutional"
+      },
+      {
+        "uid": "http://unibg.it/policy/b2s1_prof_perm",
+        "assignee": "http://unibg.it/user/administrative",
+        "target": "http://unibg.it/engineering/professor",
+        "action": "write",
+	"purpose": "institutional"
+      },
+      {
+        "uid": "http://unibg.it/policy/b2s1_exam_perm",
+        "assignee": "http://unibg.it/user/administrative",
+        "target": "http://unibg.it/engineering/exam",
+        "action": "read",
+	"purpose": "institutional"
+      },
+      {
+        "uid": "http://unibg.it/policy/b2s1_course_perm",
+        "assignee": "http://unibg.it/user/administrative",
+        "target": "http://unibg.it/engineering/course",
+        "action": "write",
+	"purpose": "institutional"
+      }
+    ]
+  }
+ ]
