@@ -15,16 +15,10 @@
 from setuptools import setup
 
 
-with open("README.rst") as fp:
-    readme = fp.read()
-    long_description = readme[readme.index("Description"):]
-
-
 setup(
     name="mosaicrown",
     version="0.1.0",
     description="MOSAICrOWN policy engine",
-    long_description=long_description,
     install_requires=[
         # RDF
         "rdflib-jsonld",

@@ -52,7 +52,10 @@ together, they must appear together in a policy rule.
 
 In the following example we show two relational table and the permission rules on them.
 
-![joint](https://user-images.githubusercontent.com/15113769/88814928-00c19e80-d1bb-11ea-97f4-4c4ab9be7fc9.jpg)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/15113769/88814928-00c19e80-d1bb-11ea-97f4-4c4ab9be7fc9.jpg"
+         alt="Color-coded representation of visibility" width="75%">
+</p>
 
 An access request like:
 ```SQL
@@ -94,7 +97,10 @@ SELECT CardHolder.Name FROM CardHolder
 ```
 is parsed using *sqlparse* to produce the parse tree representation:
 
-![parse_tree](https://user-images.githubusercontent.com/15113769/88815168-4ed6a200-d1bb-11ea-8def-d61f43585d97.jpg)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/15113769/88815168-4ed6a200-d1bb-11ea-8def-d61f43585d97.jpg"
+         alt="Parse tree example">
+</p>
 
 The tree is then enriched, to identify and isolate the targets of the query:
 
