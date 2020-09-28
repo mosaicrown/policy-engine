@@ -31,7 +31,7 @@ colorama.init(autoreset=True)
 def main():
 
     graph = rdflib.Graph()
-    graph.parse(source="examples/scripts/policies/assets.json",
+    graph.parse(source="examples/scripts/policies/assets.jsonld",
                 format="json-ld")
 
     print(colorama.Fore.CYAN + "[*] Add IRI-based hierarchy on targets")

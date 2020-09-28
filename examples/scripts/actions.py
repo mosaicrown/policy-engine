@@ -44,10 +44,7 @@ def main():
     # create empty RDF graph.
     graph = rdflib.Graph()
     # parse movies policy and add to graph.
-    graph.parse("examples/scripts/policies/movies.json", format="json-ld")
-
-    for i, j, k in graph.triples((None, None, None)):
-        print(i, j, k)
+    graph.parse("examples/scripts/policies/movies.jsonld", format="json-ld")
 
     # Print the triples in the policy.
     print('\n[*] The policy\n')

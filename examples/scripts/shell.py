@@ -21,7 +21,7 @@ from mosaicrown import visualization    # noqa
 from mosaicrown import vocabularies
 
 graph = rdflib.Graph()
-graph.parse("examples/scripts/policies/assets.json", format="json-ld")
+graph.parse("examples/scripts/policies/assets.jsonld", format="json-ld")
 graph.parse(vocabularies.JSON_LD["ODRL"], format="json-ld")
 
 generic = rdflib.URIRef("http://unibg.it/user")
