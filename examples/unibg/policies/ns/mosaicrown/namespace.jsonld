@@ -5,10 +5,10 @@
       "declinationOf":  {"@type": "@id", "@id": "mosaicrown:declinationOf"},
       "belongsTo":      {"@type": "@id", "@id": "mosaicrown:belongsTo"},
       "statistical":    "mosaicrown:statistical",
-      "institutional":	"mosaicrown:institutional",
-      "read":		      "mosaicrown:read",
-      "write":		      "mosaicrown:write",
-      "sell":		      "mosaicrown:sell",      
-      "sellreport":	   "mosaicrown:sellreport"
+      "institutional":  "mosaicrown:institutional",
+      "read":           "mosaicrown:read",
+      "write":          "mosaicrown:write",
+      "sell":           "mosaicrown:sell",      
+      "sellreport":     "mosaicrown:sellreport"
    }
 }

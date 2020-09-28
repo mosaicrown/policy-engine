@@ -1,9 +1,9 @@
 [
   {
-      "@context": [
-	  "http://www.w3.org/ns/odrl.jsonld",
-	  "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
-      ],
+    "@context": [
+      "http://www.w3.org/ns/odrl.jsonld",
+      "http://localhost:8000/ns/mosaicrown/namespace.jsonld"
+    ],
     "@type": "Set",
     "uid": "http://unibg.it/policy/a1s1",
     "permission": [
@@ -12,51 +12,51 @@
         "assignee": "http://unibg.it/user/professor",
         "target": "http://unibg.it/engineering/student",
         "action": "read",
-	"purpose": "statistical"
+        "purpose": "statistical"
       },
       {
         "uid": "http://unibg.it/policy/a1s1_prof_perm",
         "assignee": "http://unibg.it/user/professor",
         "target": "http://unibg.it/engineering/professor",
         "action": "read",
-	"purpose": "statistical"
+        "purpose": "statistical"
       },
       {
         "uid": "http://unibg.it/policy/a1s1_exam_perm",
         "assignee": "http://unibg.it/user/professor",
         "target": "http://unibg.it/engineering/exam",
         "action": "read",
-	"purpose": "statistical"
+        "purpose": "statistical"
       },
       {
         "uid": "http://unibg.it/policy/a1s1_course_perm",
         "assignee": "http://unibg.it/user/professor",
         "target": "http://unibg.it/engineering/course",
         "action": "read",
-	"purpose": "statistical"
+        "purpose": "statistical"
       }
     ],
     "prohibition": [
       {
-    	"uid": "http://unibg.it/policy/a1s1_stud_pro",
-	"assignee": "http://unibg.it/user/professor",
+        "uid": "http://unibg.it/policy/a1s1_stud_pro",
+        "assignee": "http://unibg.it/user/professor",
         "target": [
-	  "http://unibg.it/engineering/student/birthdate",
-	  "http://unibg.it/engineering/student/income"
-	],
+          "http://unibg.it/engineering/student/birthdate",
+          "http://unibg.it/engineering/student/income"
+        ],
         "action": "write",
-	"purpose": "statistical"
+        "purpose": "statistical"
       },
       {
-    	"uid": "http://unibg.it/policy/a1s1_prof_pro",
-	"assignee": "http://unibg.it/user/professor",
+        "uid": "http://unibg.it/policy/a1s1_prof_pro",
+        "assignee": "http://unibg.it/user/professor",
         "target": [
-	  "http://unibg.it/engineering/professor/salary",
-  	  "http://unibg.it/engineering/professor/ethnicity"
-	],
+          "http://unibg.it/engineering/professor/salary",
+          "http://unibg.it/engineering/professor/ethnicity"
+        ],
         "action": "write",
-	"purpose": "statistical"
+        "purpose": "statistical"
       }
     ]
   }
- ]
+]

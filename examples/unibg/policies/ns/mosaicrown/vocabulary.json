@@ -1,6 +1,6 @@
-[  
-{
-   "@id": "http://localhost:8000/mosaicrown_definitions/purpose",
+[
+  {
+    "@id": "http://localhost:8000/mosaicrown_definitions/purpose",
     "@type": [
       "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
       "http://www.w3.org/2004/02/skos/core#Concept",
@@ -76,7 +76,7 @@
       }
     ]
   },
-{
+  {
     "@id": "http://localhost:8000/ns/mosaicrown/belongsTo",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty",
@@ -118,7 +118,7 @@
       }
     ]
   },
-{
+  {
     "@id": "http://localhost:8000/ns/mosaicrown/statistical",
     "@type": [
       "http://localhost:8000/ns/mosaicrown/purpose",
@@ -166,7 +166,7 @@
       }
     ]
   },
-{
+  {
     "@id": "http://localhost:8000/ns/mosaicrown/write",
     "@type": [
       "http://www.w3.org/ns/odrl/2/action",
@@ -190,8 +190,8 @@
       }
     ]
   },
-{
-   "@id": "http://localhost:8000/ns/mosaicrown/read" ,
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/read",
     "@type": [
       "http://www.w3.org/ns/odrl/2/action",
       "http://www.w3.org/2004/02/skos/core#Concept"
@@ -216,10 +216,10 @@
     "http://www.w3.org/ns/odrl/2/includedIn": [
       {
         "@id": "http://localhost:8000/ns/mosaicrown/write"
-      }      
+      }
     ]
   },
-{
+  {
     "@id": "http://localhost:8000/ns/mosaicrown/sell",
     "@type": [
       "http://www.w3.org/ns/odrl/2/action",
@@ -243,8 +243,8 @@
       }
     ]
   },
-{
-   "@id": "http://localhost:8000/ns/mosaicrown/sellreport" ,
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/sellreport",
     "@type": [
       "http://www.w3.org/ns/odrl/2/action",
       "http://www.w3.org/2004/02/skos/core#Concept"
@@ -269,9 +269,7 @@
     "http://www.w3.org/ns/odrl/2/includedIn": [
       {
         "@id": "http://localhost:8000/ns/mosaicrown/sell"
-      }      
+      }
     ]
   }
-
-  
 ]
