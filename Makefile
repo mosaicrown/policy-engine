@@ -1,4 +1,4 @@
-.PHONY: addlicense all check_binaries clean lint run unibg _unibg start_unibg_server stopserver shell test visualization demo _demo start_demo_server
+.PHONY: addlicense all check_binaries clean _demo demo lint run shell start_demo_server start_unibg_server startserver stopserver test _unibg unibg visualization
 
 SHELL          := /bin/bash
 VENV           := $(PWD)/venv
@@ -38,7 +38,7 @@ $(ACTIVATE): requirements.txt setup.py $(PACKAGES)
 	test -d $(VENV) || $(VIRTUALENV) $(VENV)
 	$(PIP) install $(QUIET) --upgrade pip
 	$(PIP) install $(QUIET) -r $(REQUIREMENTS)
-	touch $(ACTIVATE)
+	@ touch $(ACTIVATE)
 
 $(IPYTHON): $(VENV)
 	$(PIP) install $(QUIET) ipython
@@ -49,7 +49,7 @@ $(FLAKE8): $(VENV)
 $(PYTEST): $(VENV)
 	$(PIP) install $(QUIET) pytest
 
-run: | _kill_server startserver _run stopserver
+run: | startserver _run stopserver
 
 _kill_server:
 	@ if test -f $(PIDFILE); then \
@@ -57,10 +57,9 @@ _kill_server:
 	fi
 
 startserver: mosaicrown/namespaces $(VENV)
+	@ make -s _kill_server;
 	@ echo "[*] Starting web server"
-	@ echo "[i] Policy vocabulary now available"
 	@ cd $< ; $(PYTHON) -m http.server >/dev/null & echo $$! > $(PIDFILE)
-
 
 _run: $(VENV)
 	$(call run_python,examples/scripts/actions.py)
@@ -73,9 +72,10 @@ stopserver:
 		rm $(PIDFILE) || \
 		echo "[*] No server running"
 
-demo: | _kill_server start_demo_server _demo stopserver
+demo: | start_demo_server _demo stopserver
 
 start_demo_server: examples/demo/policy $(VENV)
+	@ make -s _kill_server;
 	@ echo "[*] Starting web server"
 	@ echo "[i] Policy vocabulary now available"
 	@ cd $< ; $(PYTHON) -m http.server >/dev/null & echo $$! > $(PIDFILE)
@@ -83,9 +83,10 @@ start_demo_server: examples/demo/policy $(VENV)
 _demo: $(VENV)
 	$(call run_python,examples/demo/demo.py)
 
-unibg: | _kill_server start_unibg_server _unibg stopserver
+unibg: | start_unibg_server _unibg stopserver
 
-start_unibg_server: examples/unibg/policies $(VENV)
+start_unibg_server: examples/unibg/policy $(VENV)
+	@ make -s _kill_server;
 	@ echo "[*] Starting web server"
 	@ cd $< ; $(PYTHON) -m http.server >/dev/null & echo $$! > $(PIDFILE)
 
@@ -95,7 +96,7 @@ _unibg: $(VENV)
 test: $(VENV) $(PYTEST)
 	$(PYTEST)
 
-shell: | _kill_server startserver _shell stopserver
+shell: | startserver _shell stopserver
 
 _shell: $(IPYTHON)
 	@ echo -e "\n[*] Running the following script and defining variables ...\n"
@@ -103,7 +104,9 @@ _shell: $(IPYTHON)
 	@ echo -e "\n[*] Running and then activating a shell ...\n"
 	$(IPYTHON) --no-banner -i $(SHELL_PRIMER)
 
-visualization: $(VENV)
+visualization: | startserver _visualization stopserver
+
+_visualization: $(VENV)
 	$(PYTHON) -m mosaicrown.visualization
 
 lint: $(FLAKE8)
@@ -127,3 +130,5 @@ check_binaries:
 #	hint: requires installing golang-go (ppa:longsleep/golang-backports)
 	@ whereis graphviz
 #	hint: requires installing graphviz
+	@ python3 -c "exec(\"try: \n\timport tkinter \nexcept: \n\tprint('Tkinter module missing. NOTE: Tkinter alternatives works too.')\")"
+#	hint: requires installing python3-tk

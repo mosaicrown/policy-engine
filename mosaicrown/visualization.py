@@ -50,11 +50,11 @@ def draw_graph(graph, pred, subj=None, obj=None, reverse=False, **kwargs):
         labels[o] = labels.get(o, o)
 
     G = G.reverse() if reverse else G
-    kwargs.update({"node_size": 1000, "node_color": "white", "node_shape": "s"})
     pos = nx.drawing.nx_agraph.graphviz_layout(G, prog="dot")
     nx.draw_networkx_edges(G, pos, **kwargs)
-    nx.draw_networkx_nodes(G, pos, **kwargs)
     nx.draw_networkx_labels(G, pos, labels, **kwargs)
+    kwargs.update({"node_size": 1000, "node_color": "white", "node_shape": "s"})
+    nx.draw_networkx_nodes(G, pos, **kwargs)
     return G
 
 
@@ -80,7 +80,7 @@ def results_table(query, results, **kwargs):
 
 def main():
     graph = rdflib.Graph()
-    graph.parse(source="policies/assets.json", format="json-ld")
+    graph.parse(source="examples/scripts/policies/assets.jsonld", format="json-ld")
 
     for target in utils.get_targets(graph):
         utils.add_iri_hierarchy_to_graph(graph, target,
