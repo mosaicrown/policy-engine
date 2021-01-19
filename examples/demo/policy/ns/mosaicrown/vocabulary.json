@@ -1,6 +1,6 @@
 [
   {
-    "@id": "http://localhost:8000/mosaicrown/purpose",
+    "@id": "http://localhost:8000/ns/mosaicrown/purpose",
     "@type": [
       "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
       "http://www.w3.org/2004/02/skos/core#Concept",
@@ -8,7 +8,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:ub1bL732C14"
+        "@id": "http://localhost:8000/ns/mosaicrown/Purpose"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -24,7 +24,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "http://localhost:8000/ns/mosaicrown"
+        "@id": "http://localhost:8000/ns/mosaicrown/Purpose"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -44,7 +44,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "http://localhost:8000/ns/mosaicrown/"
+        "@id": "http://localhost:8000/ns/mosaicrown/Purpose"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -60,7 +60,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "http://localhost:8000/ns/mosaicrown/purpose"
+        "@id": "http://localhost:8000/ns/mosaicrown/Purpose"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -121,7 +121,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/statistical",
     "@type": [
-      "http://localhost:8000/ns/mosaicrown/purpose",
+      "http://localhost:8000/ns/mosaicrown/Purpose",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -145,7 +145,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/marketing",
     "@type": [
-      "http://localhost:8000/ns/mosaicrown/purpose",
+      "http://localhost:8000/ns/mosaicrown/Purpose",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -169,7 +169,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/use",
     "@type": [
-      "http://www.w3.org/ns/odrl/2/action",
+      "http://www.w3.org/ns/odrl/2/Action",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -193,7 +193,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/write",
     "@type": [
-      "http://www.w3.org/ns/odrl/2/action",
+      "http://www.w3.org/ns/odrl/2/Action",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -222,7 +222,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/read",
     "@type": [
-      "http://www.w3.org/ns/odrl/2/action",
+      "http://www.w3.org/ns/odrl/2/Action",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -251,7 +251,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/sell",
     "@type": [
-      "http://www.w3.org/ns/odrl/2/action",
+      "http://www.w3.org/ns/odrl/2/Action",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -275,7 +275,7 @@
   {
     "@id": "http://localhost:8000/ns/mosaicrown/sellreport",
     "@type": [
-      "http://www.w3.org/ns/odrl/2/action",
+      "http://www.w3.org/ns/odrl/2/Action",
       "http://www.w3.org/2004/02/skos/core#Concept"
     ],
     "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
@@ -298,6 +298,31 @@
     "http://www.w3.org/ns/odrl/2/includedIn": [
       {
         "@id": "http://localhost:8000/ns/mosaicrown/sell"
+      }
+    ]
+  },
+  {
+    "@id": "http://localhost:8000/ns/mosaicrown/Purpose",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2004/02/skos/core#Concept",
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://localhost:8000/ns/mosaicrown/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Purpose"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The purpose of an intended action checked against a policy."
       }
     ]
   }
