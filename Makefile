@@ -93,6 +93,16 @@ start_unibg_server: examples/unibg/policy $(VENV)
 _unibg: $(VENV)
 	$(call run_python,examples/unibg/unibg.py)
 
+con: | start_constraint_server _con stopserver
+
+start_constraint_server: examples/constraints/policy $(VENV)
+	@ make -s _kill_server;
+	@ echo "[*] Starting web server"
+	@ cd $< ; $(PYTHON) -m http.server >/dev/null & echo $$! > $(PIDFILE)
+
+_con: $(VENV)
+	$(call run_python,examples/constraints/extractConstraints.py)
+
 test: $(VENV) $(PYTEST)
 	$(PYTEST)
 

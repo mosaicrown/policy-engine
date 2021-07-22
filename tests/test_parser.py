@@ -13,8 +13,13 @@
 # limitations under the License.
 
 from pytest import raises
+from rdflib import Variable
 
-from mosaicrown.sqlquery import SQLQuery
+from mosaicrown.sparql.sparqlparser import extract_object
+from mosaicrown.sparql.sparqlparser import extract_predicates
+from mosaicrown.sparql.sparqlparser import extract_subject
+from mosaicrown.sparql.sparqlparser import parse_SPARQL_query
+from mosaicrown.sql.sqlquery import SQLQuery
 
 
 # SELECT
@@ -447,3 +452,48 @@ def test_aliases_everywhere():
     """
     expectation = {"A": {"a"}, "B": {"b"}, "C": {"c"}, "D": {"d"}, "E": {"e"}}
     assert SQLQuery(query).get_targets() == expectation
+
+
+# EXTRACT TARGETS FROM SPARQL QUERY
+def test_simple_SPARQL_parsing():
+
+    example = '''
+            PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+            SELECT ?p ?h ?c WHERE {
+            ?p a dbpedia-owl:Artist.
+            ?h dbpedia-owl:birthPlace | dbpedia-owl:district ?c.
+            ?c <http://xmlns.com/foaf/0.1/name> "York"@en.
+            FILTER (?p IN (<http://example.org/JohnDoe>, <http://example.org/Jack>)).
+            FILTER (?p < 0.35)
+            }
+            '''
+    # Extraction procedure and parse tree creation
+    where, triples, tree, filters, prefix_dict = parse_SPARQL_query(example)
+
+    # General control on dimension
+    assert len(where) == 3  # 1 triple section + 2 filters
+    assert len(triples) == 3  # 3 triples
+
+    # Expected values
+    subjects = [Variable("p"), Variable("h"), Variable("c")]
+    predicates = ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                  "http://dbpedia.org/ontology/birthPlace OR http://dbpedia.org/ontology/district",
+                  "http://xmlns.com/foaf/0.1/name"]
+    objects = ["http://dbpedia.org/ontology/Artist", Variable("c"), "York"]
+
+    # Expected filters
+    f_sub = [Variable("p"), Variable("p")]
+    operators  = ["IN", "<"]
+    f_obj = ['http://example.org/JohnDoe, http://example.org/Jack', "0.35"]
+
+    # Triples controls
+    for triple in triples:
+        assert extract_subject(triple) == subjects.pop(0)
+        assert extract_predicates(triple, prefix_dict) == predicates.pop(0)
+        assert extract_object(triple, prefix_dict) == objects.pop(0)
+
+    # Filters controls
+    for filter in filters:
+        assert filter[0] == f_sub.pop(0)
+        assert filter[1] == operators.pop(0)
+        assert filter[2] == f_obj.pop(0)

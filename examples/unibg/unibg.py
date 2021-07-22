@@ -15,8 +15,9 @@
 import rdflib
 
 from mosaicrown import utils, vocabularies
-from mosaicrown.visualization import triples_table
 from mosaicrown.namespaces import MOSAICROWN, ODRL
+from mosaicrown.sql.sqlquery import get_targets_from_query
+from mosaicrown.visualization import triples_table
 
 
 # users
@@ -127,78 +128,78 @@ def main():
     query = "SELECT student.id, student.sex FROM student"
     print(f"\n[*] Access request:\n\t{query}")
     # extracting the targets
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     # checking access
     utils.check_access(graph, targets, professor, read, statistical)
 
     print('\n', separator)
     query = "SELECT student.id, student.sex, student.income FROM student"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, professor, read, statistical)
 
     print('\n', separator)
     query = "SELECT exam.date, exam.courseid, exam.grade FROM exam"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, professor, write, statistical)
 
     print('\n', separator)
     query = "SELECT exam.date, exam.courseid, exam.grade FROM exam"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, professor, read, institutional)
 
     print('\n', separator)
     query = "SELECT exam.date, exam.courseid, exam.grade FROM exam"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, write, statistical)
 
     print('\n', separator)
     query = "SELECT exam.date, exam.courseid, exam.grade FROM exam"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, write, institutional)
 
     print('\n', separator)
     query = "SELECT exam.date, exam.courseid, exam.grade FROM exam"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, read, institutional)
 
     print('\n', separator)
     query = "SELECT professor.sex, professor.cf FROM professor"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, sell, institutional)
 
     print('\n', separator)
     query = """SELECT professor.sex, professor.ethnicity, professor.salary
         FROM professor"""
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, sell, institutional)
 
     print('\n', separator)
     query = """SELECT professor.sex, professor.ethnicity, professor.salary
         FROM professor"""
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, sellreport,
                        institutional)
 
     print('\n', separator)
     query = "SELECT professor.cf FROM professor"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, professor, sellreport, institutional)
 
     print('\n', separator)
     query = """SELECT professor.cf, professor.ethnicity
         FROM professor JOIN course ON professor.cf=course.profcf"""
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, professor, sellreport, institutional)
 
 

@@ -1,0 +1,11 @@
+<rdf:RDF  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              xmlns:vcard="http://www.w3.org/2006/vcard/ns#">
+      <vcard:Individual>
+        <vcard:Name>Corks</vcard:Name>
+        <vcard:country-name>France</vcard:country-name>
+      </vcard:Individual>
+      <vcard:Individual>
+        <vcard:Name>John</vcard:Name>
+        <vcard:country-name>Italy</vcard:country-name>
+      </vcard:Individual>
+    </rdf:RDF>

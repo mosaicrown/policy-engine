@@ -22,13 +22,13 @@ import tabulate
 import pathlib
 
 if __package__:
+    from . import utils
     from .namespaces import ODRL
     from .vocabularies import JSON_LD
-    from . import utils
 else:
-    from namespaces import ODRL
-    from vocabularies import JSON_LD
-    import utils
+    from mosaicrown import utils
+    from mosaicrown.namespaces import ODRL
+    from mosaicrown.vocabularies import JSON_LD
 
 
 def remove_ns(ns, path):

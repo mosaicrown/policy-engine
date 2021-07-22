@@ -33,6 +33,20 @@ class Query(ABC):
         pass
 
     @abstractmethod
+    def add_constraints(self, constraints):
+        """Add constraints to the query.
+
+        A constraint contains:
+            - origin of the condition: permission or prohibition
+            - left operand
+            - comparison operator
+            - right operand
+
+        :constraints: An iterable containing constraints.
+        """
+        pass
+
+    @abstractmethod
     def get_subqueries(self):
         """Return an enumeration of targets, each representing a (sub)query targets.
 

@@ -14,14 +14,20 @@
 
 from collections import defaultdict
 
+import sqlparse
+import sqlparse.sql as S
+import sqlparse.tokens as T
+
 if __package__:
-    from .parser import Node
-    from .parser import parse
-    from .query import Query
+    from .sqlparser import _token_first
+    from .sqlparser import Node
+    from .sqlparser import parse
+    from ..query import Query
 else:
-    from parser import Node
-    from parser import parse
-    from query import Query
+    from mosaicrown.sql.sqlparser import _token_first
+    from mosaicrown.sql.sqlparser import Node
+    from mosaicrown.sql.sqlparser import parse
+    from mosaicrown.query import Query
 
 
 class SQLQuery(Query):
@@ -66,6 +72,7 @@ class SQLQuery(Query):
 
         __resolve_select_aliases(self.root)
 
+    # TODO: might need to resolve tables and aliases globally
     def _resolve_from_aliases(self):
         """Resolve the table aliases.
 
@@ -99,6 +106,67 @@ class SQLQuery(Query):
                 __resolve_from_aliases(child, tables, aliases)
 
         __resolve_from_aliases(self.root, set(), dict())
+
+    def add_constraints(self, cons):
+        """Add constraints to the SQL query.
+
+        :cons: An iterable containing constraints.
+        """
+        if not cons or (not cons.permissions and not cons.prohibitions):
+            return
+
+        targets = self.get_targets()
+        # consider iterating over the targets ignoring other entries
+        tables = set(cons.permissions.keys()) | set(cons.prohibitions.keys())
+        for table in tables:
+            if table not in targets:
+                raise ValueError(f"invalid constaint: unknown table {table}")
+
+        # translate constraints to subqueries
+        subqueries = dict()
+        for table in tables:
+            permissions, prohibitions = "", ""
+            if table in cons.permissions:
+                to_and = []
+                for to_or in cons.permissions[table]:
+                    if len(to_or) == 1:
+                        to_and.append(str(to_or[0]))
+                    elif len(to_or) > 1:
+                        to_and.append(f"({' OR '.join(map(str, to_or))})")
+                permissions = " AND ".join(to_and)
+            if table in cons.prohibitions:
+                prohibitions = " OR ".join(map(str, cons.prohibitions[table]))
+
+            if permissions and prohibitions:
+                subquery = f"""
+                    (SELECT * FROM {table}
+                    WHERE ({permissions}) AND NOT ({prohibitions}))
+                """
+            elif permissions:
+                subquery = f"(SELECT * FROM {table} WHERE ({permissions}))"
+            else:
+                subquery = f"(SELECT * FROM {table} WHERE NOT ({prohibitions}))"
+
+            subqueries[table] = _token_first(sqlparse.parse(subquery)[0].tokens)
+
+        def _rewrite(root, subqueries):
+            for idx, table in enumerate(root.state.tables):
+                norm = table.normalized
+                if norm in subqueries:
+                    alias = norm if not table.has_alias() else table.get_alias()
+                    root.state.tables[idx].tokens = [
+                        subqueries[norm],
+                        S.Token(T.Whitespace, " "),
+                        S.Token(T.Keyword, "AS"),
+                        S.Token(T.Whitespace, " "),
+                        S.Identifier([S.Token(T.Name, alias)])
+                    ]
+
+            for child in root.childs:
+                _rewrite(child, subqueries)
+
+        # update the query
+        _rewrite(self.root, subqueries)
 
     def get_subqueries(self):
         """Return an enumeration of targets, each representing a (sub)query targets.
@@ -184,3 +252,17 @@ def split_table_from_column(column):
     if fun:
         column_name = column_name + sep + fun
     return table_name, column_name
+
+
+def get_targets_from_query(query, IRIs):
+    """Convert targets representation to IRI.
+
+    :query: The query that the user wants to perform in SQL format.
+    :IRIs: A dictionary that maps the name of a database to an IRI.
+    :return: A targets dictionary that uses IRI for tables.
+    """
+    targets = SQLQuery(query).get_targets()
+    try:
+        return {IRIs[table]: set(targets[table]) for table in targets}
+    except KeyError as ke:
+        raise Exception(f"No IRI known for table: {ke.args[0]}")

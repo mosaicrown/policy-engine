@@ -14,8 +14,11 @@
 
 import rdflib
 
-from mosaicrown import utils, vocabularies
-from mosaicrown.namespaces import MOSAICROWN, ODRL
+from mosaicrown import utils
+from mosaicrown import vocabularies
+from mosaicrown.namespaces import MOSAICROWN
+from mosaicrown.namespaces import ODRL
+from mosaicrown.sql.sqlquery import get_targets_from_query
 from mosaicrown.visualization import triples_table
 
 
@@ -122,7 +125,7 @@ def main():
     query = "SELECT CardHolder.Name FROM CardHolder"
     print(f"\n[*] Access request:\n\t{query}")
     # extracting the targets
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     # checking access
     utils.check_access(graph, targets, administrative, read, statistical)
 
@@ -136,7 +139,7 @@ def main():
         ORDER BY C.DateOfBirth
     """
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, read, statistical)
 
     print(separator)
@@ -150,7 +153,7 @@ def main():
                                WHERE P.Year = '2020' and P.Month = '04')
     """
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, read, statistical)
 
     print(separator)
@@ -158,7 +161,7 @@ def main():
 
     query = "SELECT P.CustomerID, P.Month, P.Year, P.Amount FROM Payment as P"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, read, statistical)
 
     print(separator)
@@ -166,7 +169,7 @@ def main():
 
     query = "SELECT P.CustomerID, P.Month, P.Year FROM Payment as P"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, read, statistical)
 
     print(separator)
@@ -174,7 +177,7 @@ def main():
 
     query = "SELECT P.CustomerID FROM Payment as P WHERE P.Year = '2020'"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, use, statistical)
 
     print(separator)
@@ -182,7 +185,7 @@ def main():
 
     query = "SELECT P.CustomerID FROM Payment as P WHERE P.Year = '2020'"
     print(f"\n[*] Access request:\n\t{query}")
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, administrative, read, statistical)
 
     print(separator)
@@ -194,7 +197,7 @@ def main():
                                      agent_a,
                                      MOSAICROWN.belongsTo,
                                      reverse=True)
-    targets = utils.get_targets_from_query(query, target_IRIs)
+    targets = get_targets_from_query(query, target_IRIs)
     utils.check_access(graph, targets, agent_a, read, statistical)
 
 

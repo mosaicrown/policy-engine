@@ -18,22 +18,22 @@ import pathlib
 import posixpath
 import pprint
 import urllib.parse
-
-import rdflib
-import rdflib.plugins.sparql as sparql
+from collections import namedtuple
 
 import colorama
-colorama.init(autoreset=True)
-
+import rdflib
+import rdflib.plugins.sparql as sparql
+from rdflib import URIRef
 
 if __package__:
     from .namespaces import ODRL
     from .namespaces import MOSAICROWN
-    from .sqlquery import SQLQuery
 else:
-    from namespaces import ODRL
-    from .namespaces import MOSAICROWN
-    from sqlquery import SQLQuery
+    from mosaicrown.namespaces import ODRL
+    from mosaicrown.namespaces import MOSAICROWN
+
+
+colorama.init(autoreset=True)
 
 
 def get_objects(graph, predicate, subject=None):
@@ -46,6 +46,18 @@ def get_objects(graph, predicate, subject=None):
     """
     triples = graph.triples((subject, predicate, None))
     return set(obj for (subj, pred, obj) in triples)
+
+
+def get_subjects(graph, predicate, object=None):
+    """Return a set of all the subjects that match a predicate (and object).
+
+    :graph: The policy graph.
+    :predicate: The predicate of the rules to match.
+    :object: The object of the rules to match (defaults to any).
+    :return: A set of all the subjects that match the parameters in the graph.
+    """
+    triples = graph.triples((None, predicate, object))
+    return set(subj for (subj, pred, obj) in triples)
 
 
 def get_targets(graph):
@@ -64,20 +76,6 @@ def get_assignee(graph):
     :return: A set of all the odrl:assignee in the policy.
     """
     return get_objects(graph, ODRL.assignee)
-
-
-def get_targets_from_query(query, IRIs):
-    """Convert targets representation to IRI.
-
-    :query: The query that the user wants to perform in SQL format.
-    :IRIs: A dictionary that maps the name of a database to an IRI.
-    :return: A targets dictionary that uses IRI for tables.
-    """
-    targets = SQLQuery(query).get_targets()
-    try:
-        return {IRIs[table]: set(targets[table]) for table in targets}
-    except KeyError as ke:
-        raise Exception(f"No IRI known for table: {ke.args[0]}")
 
 
 def generate_subpaths(iri):
@@ -118,6 +116,95 @@ def add_iri_hierarchy_to_graph(graph, iri, predicate, reverse=False):
         subj, obj = (child, parent) if reverse else (parent, child)
         logging.debug(f"Adding ({subj}, {predicate}, {obj})")
         graph.add((subj, predicate, obj))
+
+
+def get_target_constraints(graph, target):
+    """Recover constraints of rules having the specified URI as target.
+
+        :graph: The policy graph.
+        :target: The IRI string of the target.
+        :return: The list of constraints on the given target.
+        """
+    operand_types = [URIRef("http://www.w3.org/ns/odrl/2/and"), URIRef("http://www.w3.org/ns/odrl/2/or")]
+    operand_type = ", ".join(("<{}>".format(o_type) for o_type in operand_types))
+
+    regex = f"http://((.)+/)?{target}"
+    # SPARQL query to recover the constraints inside a rule
+    # To not use the REGEX remove FILTER REGEX(STR(?target),"{regex}", "i")
+    query_string = f"""
+                   SELECT DISTINCT ?leftOperand ?operator ?rightOperand ?type ?operand ?logcon
+                      WHERE {{
+                        {{
+                        ?rule odrl:target ?target.
+                        FILTER REGEX(STR(?target),"{regex}", "i")
+                        ?policy ?type ?rule.
+                        ?rule odrl:constraint ?con.
+                        ?con odrl:leftOperand ?leftOperand.
+                        ?con odrl:operator ?operator.
+                        ?con odrl:rightOperand ?rightOperand
+                        }} UNION
+                        {{
+                        ?rule odrl:target ?target.
+                        FILTER REGEX(STR(?target),"{regex}", "i")
+                        ?policy ?type ?rule.
+                        ?rule odrl:constraint ?logcon.
+                        ?logcon ?operand ?con.
+                        ?con odrl:leftOperand ?leftOperand.
+                        ?con odrl:operator ?operator.
+                        ?con odrl:rightOperand ?rightOperand
+                        FILTER (?operand IN ({operand_type}))
+                        }}
+                      }}
+                """
+    # Recover only the constraint of the rules having the correct target
+    bindings = {
+        "target": rdflib.URIRef(target)
+    }
+    # Setup namespaces of the policy
+    namespaces = {"odrl": ODRL, "mosaicrown": MOSAICROWN}
+
+    query = sparql.prepareQuery(query_string, initNs=namespaces)
+    # To use bindings instead of REGEX graph.query(query, initBindings=bindings)
+    return graph.query(query)
+
+
+def get_all_policy_rules_by_type(graph, rule_types=None):
+
+    if not rule_types or len(rule_types) == 0:
+        return None
+
+    types = ", ".join(("<{}>".format(type) for type in rule_types))
+
+    # SPARQL query to recover all the rules inside the policy graph
+    queryString = """
+           SELECT DISTINCT ?rule ?target ?assignee ?action ?purpose
+              WHERE {{
+                  ?policy ?predicate ?rule.
+                  ?rule odrl:target ?target.
+                  ?rule odrl:assignee ?assignee.
+                  ?rule odrl:action ?action.
+                  ?rule mosaicrown:purpose ?purpose
+                  FILTER (?predicate IN ({type}))
+              }}
+        """.format(type=types)
+
+    namespaces = {"odrl": ODRL, "mosaicrown": MOSAICROWN}
+    query = sparql.prepareQuery(queryString, initNs=namespaces)
+    result = graph.query(query)
+    Rule = namedtuple('Rule', 'URI target assignee action purpose')
+    ruleDict = {}
+
+    for row in result:
+        if row[0] in ruleDict:
+            ruleDict[row[0]].append(Rule(*row))
+        else:
+            ruleDict[row[0]] = [Rule(*row)]
+    ruleSet = set()
+    for rows in ruleDict.values():
+        targets = tuple(row.target for row in rows)
+        ruleSet.add(Rule(rows[0].URI, targets, rows[0].assignee, rows[0].action, rows[0].purpose))
+
+    return ruleSet
 
 
 def get_rules(graph, targets, assignee, action, purpose, pred, ns=None,

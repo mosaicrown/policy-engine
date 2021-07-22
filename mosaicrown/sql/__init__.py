@@ -13,23 +13,13 @@
 # limitations under the License.
 
 # Make all the files available as submodules.
-from . import constraint
-from . import namespaces
-from . import query
-from . import sparql
-from . import sql
-from . import utils
-from . import visualization
-from . import vocabularies
+from . import sqlparser
+from . import sqlconstraint
+from . import sqlquery
 
 # Allow 'from mosaicrown import *' syntax.
 __all__ = [
-    "constraint",
-    "namespaces",
-    "query",
-    "sparql",
-    "sql",
-    "utils",
-    "visualization",
-    "vocabularies",
+    "sqlparser",
+    "sqlconstraint",
+    "sqlquery"
 ]

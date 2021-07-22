@@ -1,0 +1,64 @@
+[
+  {
+    "@context": [
+      "http://www.w3.org/ns/odrl.jsonld",
+      "../ns/mosaicrown/namespace.jsonld"
+    ],
+    "@type": "Set",
+    "uid": "http://unibg.it/policy/policy1",
+    "permission": [
+      {
+        "uid": "http://unibg.it/policy/studPerm",
+        "assignee": "http://unibg.it/user/professor",
+        "target": ["http://unibg.it/engineering/student"],
+        "action": "read",
+        "purpose": "statistical",
+        "constraint": {
+          "and":[{
+               "leftOperand": "http://unibg.it/engineering/student/sex",
+               "operator": "eq",
+               "rightOperand":  "female"
+           },
+           {
+               "leftOperand": "http://unibg.it/engineering/student/age",
+               "operator": "gteq",
+               "rightOperand":  "18"
+           }
+           ]
+        }
+      },
+      {
+        "uid": "http://unibg.it/policy/profPerm",
+        "assignee": "http://unibg.it/user/professor",
+        "target": ["http://unibg.it/engineering/professor"],
+        "action": "read",
+        "purpose": "statistical",
+        "constraint": [{
+           "leftOperand": "http://unibg.it/engineering/professor/sex",
+           "operator": "eq",
+           "rightOperand":  "male"
+       }]
+      },
+      {
+        "uid": "http://unibg.it/policy/secretaryPerm",
+        "assignee": "http://unibg.it/user/secretary",
+        "target": ["http://unibg.it/engineering/secretary"],
+        "action": "read",
+        "purpose": "statistical",
+        "constraint": {
+          "or":[{
+               "leftOperand": "http://unibg.it/engineering/secretary/sex",
+               "operator": "http://www.w3.org/ns/odrl/2/neq",
+               "rightOperand":  "female"
+           },
+           {
+               "leftOperand": "http://unibg.it/engineering/secretary/age",
+               "operator": "lteq",
+               "rightOperand":  "30"
+           }
+           ]
+        }
+      }
+    ]
+  }
+]

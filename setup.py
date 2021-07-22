@@ -44,6 +44,8 @@ setup(
     license="Apache",
     packages=[
         "mosaicrown",
+        "mosaicrown.sparql",
+        "mosaicrown.sql",
     ],
     keywords="policy engine odrl access control data",
 )

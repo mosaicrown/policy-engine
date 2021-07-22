@@ -20,6 +20,7 @@ import rdflib
 
 from mosaicrown import utils
 from mosaicrown.namespaces import MOSAICROWN, ODRL
+from mosaicrown.sql.sqlquery import get_targets_from_query
 from mosaicrown.visualization import results_table
 from mosaicrown.visualization import triples_table
 
@@ -73,45 +74,45 @@ def main():
     # Generic user access request.
 
     query = "SELECT students.Ethnicity FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, generic, action, purpose)
 
     query = "SELECT students.Ethnicity, students.CF FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, generic, action, purpose)
 
     query = "SELECT students.Sex, students.CF, students.Birthdate FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, generic, action, purpose)
 
     query = "SELECT students.IBAN FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, generic, action, purpose)
 
     query = "SELECT students.NotPreviouslyDefined FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, generic, action, purpose)
 
     # Parabosc user access request.
 
     query = "SELECT students.Ethnicity FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, parabosc, action, purpose)
 
     query = "SELECT students.Ethnicity, students.CF FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, parabosc, action, purpose)
 
     query = "SELECT students.Sex, students.CF, students.Birthdate FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, parabosc, action, purpose)
 
     query = "SELECT students.IBAN FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, parabosc, action, purpose)
 
     query = "SELECT students.NotPreviouslyDefined FROM students"
-    targets = utils.get_targets_from_query(query, IRIs)
+    targets = get_targets_from_query(query, IRIs)
     utils.check_access(graph, targets, parabosc, action, purpose)
 
 
